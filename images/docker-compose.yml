@@ -1,0 +1,137 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    environment:
+      - REDIS_PASSWORD=redis
+    restart: unless-stopped
+  proxy:
+    image: itzg/bungeecord
+    ports:
+      - "25565:25577"
+    environment:
+      TYPE: "VELOCITY"
+      INIT_MEMORY: "512M"
+      MAX_MEMORY: "8G"
+    volumes:
+      - ./minecraft-data/proxy/:/server
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+  lobby:
+    image: itzg/minecraft-server
+    ports:
+      - "25564:25565"
+    environment:
+      TYPE: "PURPUR"
+      VERSION: "1.16.5"
+      EULA: "TRUE"
+      MOTD: "lobby"
+      MEMORY: "16G"
+      EXEC_DIRECTLY: "TRUE"
+    volumes:
+      - ./minecraft-data/lobby/:/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+  sv1:
+    image: itzg/minecraft-server
+    ports:
+      - "25563:25565"
+    environment:
+      TYPE: "PURPUR"
+      VERSION: "1.16.5"
+      EULA: "TRUE"
+      MOTD: "server1"
+      MEMORY: "16G"
+      EXEC_DIRECTLY: "TRUE"
+    volumes:
+      - ./minecraft-data/sv1/:/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+  sv2:
+    image: itzg/minecraft-server
+    ports:
+      - "25562:25565"
+    environment:
+      TYPE: "PURPUR"
+      VERSION: "1.16.5"
+      EULA: "TRUE"
+      MOTD: "server2"
+      MEMORY: "16G"
+      EXEC_DIRECTLY: "TRUE"
+    volumes:
+      - ./minecraft-data/sv2:/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+  sv3:
+    image: itzg/minecraft-server
+    ports:
+      - "25561:25565"
+    environment:
+      TYPE: "PURPUR"
+      VERSION: "1.16.5"
+      EULA: "TRUE"
+      MOTD: "server3"
+      MEMORY: "16G"
+      EXEC_DIRECTLY: "TRUE"
+    volumes:
+      - ./minecraft-data/sv3:/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+  sv4:
+    image: itzg/minecraft-server
+    ports:
+      - "25560:25565"
+    environment:
+      TYPE: "PURPUR"
+      VERSION: "1.16.5"
+      EULA: "TRUE"
+      MOTD: "server4"
+      MEMORY: "6G"
+      EXEC_DIRECTLY: "TRUE"
+    volumes:
+      - ./minecraft-data/sv4:/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+  sv5:
+    image: itzg/minecraft-server
+    ports:
+      - "25559:25565"
+    environment:
+      TYPE: "PURPUR"
+      VERSION: "1.16.5"
+      EULA: "TRUE"
+      MOTD: "server5"
+      MEMORY: "16G"
+      EXEC_DIRECTLY: "TRUE"
+    volumes:
+      - ./minecraft-data/sv5:/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+  sv6:
+    image: itzg/minecraft-server
+    ports:
+      - "25558:25565"
+    environment:
+      TYPE: "PURPUR"
+      VERSION: "1.16.5"
+      EULA: "TRUE"
+      MOTD: "server5"
+      MEMORY: "16G"
+      EXEC_DIRECTLY: "TRUE"
+    volumes:
+      - ./minecraft-data/sv6:/data
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
