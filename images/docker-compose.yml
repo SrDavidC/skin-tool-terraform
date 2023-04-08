@@ -1,19 +1,42 @@
 version: "3"
 
 services:
-  skin_tool_python:
+  cache:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning 
+    volumes: 
+      - cache:/data
+    networks:
+      - skin-tool-network
+
+  skin-tool-python:
     image: jcedeno/skin-tool-python:latest
     ports:
       - "8069:5000"
     restart: unless-stopped
-  skin_tool_api:
+    networks:
+      - skin-tool-network
+
+  skin-tool-api:
     image: jcedeno/skin-tool-ipfs:latest
     ports:
       - "42069:8080"
     environment:
       MINESKIN_KEY: "PURPUR"
-      IPFS_HOST: "/ip4/ipfs_client/tcp/5001"
-      SKIN_TOOL_PYTHON_URI: "http://skin_tool_python:8069"
+      SKIN_TOOL_PYTHON_URI: "http://skin-tool-python:5000"
+      REDIS_URI: "redis://cache:6379"
     restart: unless-stopped
     stdin_open: true
     tty: true
+    networks:
+      - skin-tool-network
+
+volumes:
+  cache:
+    driver: local
+
+networks:
+  skin-tool-network:
