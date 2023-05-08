@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Check if $1 argument is provided
-if [ -z "$1" ]; then
-    echo "Error: Please provide the location of the zip file as an argument."
-    echo "Usage: $0 <zip_file>"
-    exit 1
-fi
+#if [ -z "$1" ]; then
+#    echo "Error: Please provide the location of the zip file as an argument."
+#    echo "Usage: $0 <zip_file>"
+#    exit 1
+#fi
 
 # Create temp folder if not exists
 if [ ! -d "temp" ]; then
@@ -15,9 +15,9 @@ fi
 cd temp
 
 # Clone stp
-git clone https://github.com/InfinityZ25/skin-tool-python
+git clone https://github.com/SrDavidC/skin-tool-python.git
 # cd into the repo and build
-cd skin-tool-python && unzip "$1"
+cd skin-tool-python # && unzip "$1"
 # Run install script
 ./scripts/build-container.sh
 
